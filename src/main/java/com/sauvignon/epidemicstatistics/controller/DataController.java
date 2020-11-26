@@ -17,7 +17,9 @@ public class DataController
     @GetMapping("/")
     public String dataList(Model model)
     {
-        List<SituationData> dataList = dataService.getList4Show();
+        List<SituationData> dataList;
+//        dataList= dataService.captureList(false);
+        dataList=dataService.list4Show();
         model.addAttribute("dataList", dataList);
         return "dataList";
     }

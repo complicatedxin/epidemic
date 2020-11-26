@@ -26,7 +26,6 @@ public class HttpUtil
             connection.setReadTimeout(30000);
             connection.setRequestProperty("Accept","application/json");
             connection.connect();
-
             if(connection.getResponseCode()==200)
             {
                 is=connection.getInputStream();
@@ -54,4 +53,5 @@ public class HttpUtil
         }
         return sb.toString();
     }
+
 }

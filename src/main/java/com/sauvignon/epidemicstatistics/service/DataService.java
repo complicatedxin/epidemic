@@ -1,9 +1,11 @@
 package com.sauvignon.epidemicstatistics.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.sauvignon.epidemicstatistics.pojo.SituationData;
 import java.util.List;
 
-public interface DataService
+public interface DataService extends IService<SituationData>
 {
-    List<SituationData> getList4Show();
+    List<SituationData> list4Show();
+    List<SituationData> captureList(boolean save);
 }
