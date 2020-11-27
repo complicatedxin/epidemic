@@ -42,9 +42,9 @@ public class DataServiceImpl extends ServiceImpl<DataMapper,SituationData> imple
             infoStr=HttpUtil.doGet(Constant.DXY_COVID19_PAGE);
             if(infoStr==null || "".equals(infoStr))
                 return null;
-            return SauUtil.parseHTML2List(infoStr,save);
+            return SauUtil.parseHTML4SituData(infoStr,save);
         }
-        return SauUtil.parseJson2List(infoStr,save);
+        return SauUtil.parseJson4SituData(infoStr,save);
     }
 
 }

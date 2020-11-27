@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sauvignon COVID-19 Statistic</title>
+    <script src="echarts.min.js"></script>
+</head>
+
+<body>
+<div id="lineGraph" style="width: 1500px;height:750px;"></div>
+<script th:inline="javascript">
+    var dateJsonStr = [[${dateList}]];
+    var confirmJsonStr = [[${confirmList}]];
+    var currentConfirmJsonStr = [[${currentConfirmList}]];
+    var currentSevereJsonStr = [[${currentSevereList}]];
+    var importedCaseJsonStr = [[${importedCaseList}]];
+    var suspectJsonStr = [[${suspectList}]];
+    var deadJsonStr = [[${deadList}]];
+    var healJsonStr = [[${healList}]];
+    var myChart = echarts.init(document.getElementById('lineGraph'));
+    var option = {
+        title: {
+            text: '国内疫情情况趋势'
+        },
+        tooltip: {},
+        legend: {
+            data:['确诊总量','现有确诊','现有重症','输入病例','疑似','死亡','治愈']
+        },
+        xAxis: {
+            data: JSON.parse(dateJsonStr)
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '确诊总量',
+                type: 'line',
+                data: JSON.parse(confirmJsonStr)
+            },
+            {
+                name: '现有确诊',
+                type: 'line',
+                data: JSON.parse(currentConfirmJsonStr)
+            },
+            {
+                name: '现有重症',
+                type: 'line',
+                data: JSON.parse(currentSevereJsonStr)
+            },
+            {
+                name: '输入病例',
+                type: 'line',
+                data: JSON.parse(importedCaseJsonStr)
+            },
+            {
+                name: '疑似',
+                type: 'line',
+                data: JSON.parse(suspectJsonStr)
+            },
+            {
+                name: '死亡',
+                type: 'line',
+                data: JSON.parse(deadJsonStr)
+            },
+            {
+                name: '治愈',
+                type: 'line',
+                data: JSON.parse(healJsonStr)
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+
+</body>
+</html>

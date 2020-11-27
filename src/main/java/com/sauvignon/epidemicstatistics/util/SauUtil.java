@@ -2,6 +2,7 @@ package com.sauvignon.epidemicstatistics.util;
 
 import com.google.gson.Gson;
 import com.sauvignon.epidemicstatistics.pojo.SituationData;
+import com.sauvignon.epidemicstatistics.pojo.StatisticData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class SauUtil
 {
-    public static List<SituationData> parseJson2List(String jsonStr,boolean save)
+    public static List<SituationData> parseJson4SituData(String jsonStr, boolean save)
     {
         List<SituationData> dataList=null;
         Gson gson=new Gson();
@@ -25,7 +26,7 @@ public class SauUtil
 
         List provinceList= (List) areaTreeMap.get("children");
         if(save)
-            return tXDataList(provinceList,null);
+            return getTXDataList(provinceList,null);
         dataList=parseJsonFromTX(provinceList);
         return dataList;
     }
@@ -54,7 +55,7 @@ public class SauUtil
         }
         return result;
     }
-    private static List<SituationData> tXDataList(List areaList, String pName)
+    private static List<SituationData> getTXDataList(List areaList, String pName)
     {
         if(areaList==null) return null;
         List<SituationData> result=new ArrayList<>();
@@ -77,12 +78,12 @@ public class SauUtil
             result.add(oneData);
             List childrenList= (List) areaInfoMap.get("children");
             if(childrenList!=null && childrenList.size()!=0)
-                result.addAll(tXDataList(childrenList,areaName));
+                result.addAll(getTXDataList(childrenList,areaName));
         }
         return result;
     }
 
-    public static List<SituationData> parseHTML2List(String htmlStr,boolean save)
+    public static List<SituationData> parseHTML4SituData(String htmlStr, boolean save)
     {
         List<SituationData> dataList=null;
         Document document=Jsoup.parse(htmlStr);
@@ -92,7 +93,7 @@ public class SauUtil
         Gson gson=new Gson();
         List provinceList=gson.fromJson(data,List.class);
         if(save)
-            return dXYDataList(provinceList,null);
+            return getDXYDataList(provinceList,null);
         dataList=parseJsonFromDXY(provinceList);
         return dataList;
     }
@@ -129,7 +130,7 @@ public class SauUtil
         }
         return result;
     }
-    private static List<SituationData> dXYDataList(List areaList, String pName)
+    private static List<SituationData> getDXYDataList(List areaList, String pName)
     {
         if(areaList==null) return null;
         List<SituationData> result=new ArrayList<>();
@@ -151,7 +152,32 @@ public class SauUtil
             result.add(oneData);
             List childrenList= (List) areaInfoMap.get("cities");
             if(childrenList!=null && childrenList.size()!=0)
-                result.addAll(dXYDataList(childrenList,areaName));
+                result.addAll(getDXYDataList(childrenList,areaName));
+        }
+        return result;
+    }
+
+    public static List<StatisticData> parseJson4StaData(String jsonStr,boolean save)
+    {
+        List<StatisticData> result=new ArrayList<>();
+        Gson gson=new Gson();
+        Map jsonMap=gson.fromJson(jsonStr,Map.class);
+        Map dataMap= (Map) jsonMap.get("data");
+        List chinaDayList= (List) dataMap.get("chinaDayList");
+        for(int i=0;i<chinaDayList.size();i++)
+        {
+            Map dayInfoMap= (Map) chinaDayList.get(i);
+            result.add(new StatisticData(null,
+                    (String) dayInfoMap.get("date"),
+                    ((Double) dayInfoMap.get("confirm")).intValue(),
+                    ((Double) dayInfoMap.get("nowConfirm")).intValue(),
+                    ((Double) dayInfoMap.get("nowSevere")).intValue(),
+                    ((Double) dayInfoMap.get("importedCase")).intValue(),
+                    ((Double) dayInfoMap.get("suspect")).intValue(),
+                    ((Double) dayInfoMap.get("dead")).intValue(),
+                    Float.parseFloat((String) dayInfoMap.get("deadRate")),
+                    ((Double) dayInfoMap.get("heal")).intValue(),
+                    Float.parseFloat((String) dayInfoMap.get("healRate"))));
         }
         return result;
     }

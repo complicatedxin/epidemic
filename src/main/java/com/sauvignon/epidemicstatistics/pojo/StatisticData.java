@@ -1,29 +1,25 @@
 package com.sauvignon.epidemicstatistics.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
-import java.util.List;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-@TableName("situdata")
-public class SituationData implements Serializable
+@TableName("stadata")
+public class StatisticData implements Serializable
 {
-    private Long sdId;
-    private String areaName;
-    private String pName;
+    private Integer sdId;
+    private String sdDate;
 
     private Integer confirm;
     private Integer currentConfirm;
+    private Integer currentSevere;
+    private Integer importedCase;
     private Integer suspect;
     private Integer dead;
     private Float deadRate;
     private Integer heal;
     private Float healRate;
-
-    @TableField(exist = false)
-    private List<SituationData> childrenList;
 }

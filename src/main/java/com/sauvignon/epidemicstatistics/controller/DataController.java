@@ -14,7 +14,7 @@ public class DataController
     @Autowired
     private DataService dataService;
 
-    @GetMapping("/")
+    @GetMapping("/areaData")
     public String dataList(Model model)
     {
         List<SituationData> dataList;
