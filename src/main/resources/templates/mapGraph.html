@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sauvignon COVID-19 Statistic</title>
+    <script src="echarts.min.js"></script>
+    <script src="china.js"></script>
+</head>
+
+<body>
+<div id="mapGraph" style="width: 1500px;height:750px;"></div>
+<script th:inline="javascript">
+    var confirmListStr = [[${confirmList}]];
+    var currentConfirmListStr = [[${currentConfirmList}]];
+    var myChart = echarts.init(document.getElementById('mapGraph'));
+    var option = {
+        title : {
+            text: '当前感染统计',
+            subtext: '数据来自腾讯新闻与丁香园',
+            left: 'center'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data:['感染人数','疑似病例','总确诊数']
+        },
+        visualMap: {
+            type: 'piecewise',
+            pieces: [
+                {min: 10000, max: 1000000, label: '10000人以上', color: '#930c18'},
+                {min: 1000, max: 9999, label: '1000-9999人', color: '#bb1722'},
+                {min: 500, max: 999, label: '500-999人', color: '#df6144'},
+                {min: 100, max: 499, label: '100-499人', color: '#f59069'},
+                {min: 10, max: 99, label: '10-99人', color: '#ffcea0'},
+                {min: 1, max: 9, label: '1-9人', color: '#e2ebf4'},
+                {min: 0, max: 0, label: '0人', color: '#ffffff'}
+            ],
+            calculable : true
+        },
+        toolbox: {
+            show: true,
+            orient : 'vertical',
+            left: 'right',
+            top: 'center',
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        series : [
+            {
+                name: '感染人数',
+                type: 'map',
+                mapType: 'china',
+                roam: false,
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                data:JSON.parse(currentConfirmListStr)
+            },
+            {
+                name: '总确诊数',
+                type: 'map',
+                mapType: 'china',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                data:JSON.parse(confirmListStr)
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+
+</body>
+</html>

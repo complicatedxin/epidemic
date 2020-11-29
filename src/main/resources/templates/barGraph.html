@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sauvignon COVID-19 Statistic</title>
+    <script src="echarts.min.js"></script>
+</head>
+
+<body>
+<div id="barGraph" style="width: 1500px;height:750px;"></div>
+<script th:inline="javascript">
+    var barGraphElem = [[${barGraphElem}]];
+    var areaNameListStr = [[${areaNameList}]];
+    var confirmListStr = [[${confirmList}]];
+    var currentConfirmListStr = [[${currentConfirmList}]];
+    var myChart = echarts.init(document.getElementById('barGraph'));
+    var option = {
+        title: {
+            text: barGraphElem
+        },
+        tooltip: {},
+        legend: {
+            data:['输入型总量','现有输入量']
+        },
+        xAxis: {
+            data: JSON.parse(areaNameListStr)
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '输入型总量',
+                type: 'bar',
+                data: JSON.parse(confirmListStr)
+            },
+            {
+                name: '现有输入量',
+                type: 'bar',
+                data: JSON.parse(currentConfirmListStr)
+            },
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+
+</body>
+</html>

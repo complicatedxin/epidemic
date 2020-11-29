@@ -1,6 +1,5 @@
 package com.sauvignon.epidemicstatistics.controller;
 
-import com.sauvignon.epidemicstatistics.pojo.SituationData;
 import com.sauvignon.epidemicstatistics.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +16,8 @@ public class DataController
     @GetMapping("/areaData")
     public String dataList(Model model)
     {
-        List<SituationData> dataList;
-//        dataList= dataService.captureList(false);
-        dataList=dataService.list4Show();
-        model.addAttribute("dataList", dataList);
+        model.addAttribute("dataList", dataService.list4Show());
         return "dataList";
     }
+
 }

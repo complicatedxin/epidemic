@@ -15,6 +15,6 @@ public class GraphServiceImpl implements GraphService
     public List<StatisticData> captureList(boolean save)
     {
         String jsonStr=HttpUtil.doGet(Constant.TX_COVID19_STATISTIC);
-        return SauUtil.parseJson4StaData(jsonStr,false);
+        return SauUtil.captureStaDataFromTX(jsonStr,false);
     }
 }
