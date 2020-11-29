@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sauvignon COVID-19 Statistic</title>
+    <title th:text="#{dataList.title}">Sauvignon COVID-19 Statistic</title>
 
     <link rel="stylesheet" th:href="@{/bootstrap.css}">
 </head>
 
 <body>
-<h2>疫情情况</h2>
+<h2 th:text="#{dataList.h2}">疫情情况</h2>
 
 <label>
     <a class="btn btn-sm" th:href="@{/(lan='zh_CN')}">中文</a>
@@ -18,14 +18,14 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th><p>地区</p></th>
-            <th><p>确诊</p></th>
-            <th><p>确诊总量</p></th>
-            <th><p>疑似病例</p></th>
-            <th><p>死亡</p></th>
-            <th><p>死亡率</p></th>
-            <th><p>治愈</p></th>
-            <th><p>治愈率</p></th>
+            <th><p th:text="#{dataList.table.name1}">地区</p></th>
+            <th><p th:text="#{dataList.table.name2}">确诊</p></th>
+            <th><p th:text="#{dataList.table.name3}">确诊总量</p></th>
+            <th><p th:text="#{dataList.table.name4}">疑似病例</p></th>
+            <th><p th:text="#{dataList.table.name5}">死亡</p></th>
+            <th><p th:text="#{dataList.table.name6}">死亡率</p></th>
+            <th><p th:text="#{dataList.table.name7}">治愈</p></th>
+            <th><p th:text="#{dataList.table.name8}">治愈率</p></th>
         </tr>
     </thead>
     <tbody>

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Test
 {
-    @org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test  //OK
     public void t_gson() throws Exception
     {
         Gson gson=new Gson();

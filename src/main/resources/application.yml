@@ -1,2 +1,21 @@
 server:
   port: 8090
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/epidemicstatistic?useSSL=false&serverTimezone=CST
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ...
+
+  messages:
+    basename: i18n.dataList
+
+  mail:
+    host: smtp.qq.com
+    username: ...
+    password: ...
+    properties:
+      smtp:
+        ssl:
+          enable: true
