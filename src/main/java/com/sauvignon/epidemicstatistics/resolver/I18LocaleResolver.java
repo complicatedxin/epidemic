@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
-public class ESLocaleResolver implements LocaleResolver
+public class I18LocaleResolver implements LocaleResolver
 {
     @Override
     public Locale resolveLocale(HttpServletRequest request)

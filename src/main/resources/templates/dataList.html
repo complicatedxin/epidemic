@@ -15,6 +15,10 @@
     <a class="btn btn-sm" th:href="@{/(lan='en_US')}">English</a>
 </label>
 
+<form class="form-inline my-2 my-lg-0" action="/search/area" method="get">
+    <input class="form-control mr-sm-2" type="search" id="searchInput" placeholder="搜索" name="searchInfo" aria-label="Search">
+    <button class="btn btn-sm btn-outline-secondary" type="submit" id="searchBtn">搜索</button>
+</form>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -31,8 +35,8 @@
     <tbody>
         <tr th:each="data:${dataList}">
             <td th:text="${data.areaName}">name</td>
-            <td th:text="${data.confirm}">confirm</td>
             <td th:text="${data.currentConfirm}">currentConfirm</td>
+            <td th:text="${data.confirm}">confirm</td>
             <td th:text="${data.suspect}">suspect</td>
             <td th:text="${data.dead}">dead</td>
             <td th:text="${data.deadRate}">deadRate</td>
